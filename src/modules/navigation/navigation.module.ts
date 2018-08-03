@@ -19,22 +19,17 @@ import { TodPage } from 'modules/tod/pages';
 import { TodoPage } from 'modules/todo/pages';
 
 const routes: Routes = [
-  { path: '', component: HomePage, pathMatch: 'full' },
-  {
-    path: 'tod',
-    children: [
-       { path: '', component: TodPage },
-       // { path: ':id', component: PassengerViewerComponent }
-    ]
-  },
-  {
-    path: 'todo',
-    children: [
-       { path: '', component: TodoPage },
-      //  { path: ':id', component: PassengerViewerComponent }
-    ]
-  },
-  { path: '**', component: NotFoundPage },
+  { path: 'home', component: HomePage, children: [
+    {
+      path: 'tod',
+      component: TodPage
+    },
+    {
+      path: 'todo',
+      component: TodoPage
+    }
+  ]
+  }
 ];
 
 @NgModule({
@@ -52,6 +47,6 @@ const routes: Routes = [
   ],
   providers: [],
   exports: [TodNavbarComponent],
-  bootstrap: [TodNavbarComponent]
+  bootstrap: [HomePage]
 })
 export class NavigationModule {}

@@ -14,17 +14,17 @@ interface Nav {
 export class TodNavbarComponent {
   nav: Nav[] = [
     {
-      link: '/',
+      link: '/home',
       name: 'Home',
       exact: true
     },
     {
-      link: '/tod',
+      link: '/home/tod',
       name: 'TOD',
       exact: true
     },
     {
-      link: '/todo',
+      link: '/home/todo',
       name: 'TODO',
       exact: true
     },

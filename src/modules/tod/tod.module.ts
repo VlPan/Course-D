@@ -1,22 +1,20 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
-import { AppComponent } from './pages';
-
 import { CommonModule } from '@angular/common';
+import { RouterModule, Routes } from '@angular/router';
 
-import {NavigationModule} from 'modules/navigation/navigation.module';
+import { TodPage }  from './pages';
 
 @NgModule({
   declarations: [
-    AppComponent
+    TodPage
   ],
   imports: [
-    BrowserModule,
     CommonModule,
-    NavigationModule
+    BrowserModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  exports: [TodPage],
+  bootstrap: [TodPage]
 })
-export class AppModule { }
+export class TodModule {}

@@ -1,22 +1,20 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
-import { AppComponent } from './pages';
-
 import { CommonModule } from '@angular/common';
+import { RouterModule, Routes } from '@angular/router';
 
-import {NavigationModule} from 'modules/navigation/navigation.module';
+import { TodoPage }  from './pages';
 
 @NgModule({
   declarations: [
-    AppComponent
+    TodoPage
   ],
   imports: [
-    BrowserModule,
     CommonModule,
-    NavigationModule
+    BrowserModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  exports: [TodoPage],
+  bootstrap: [TodoPage]
 })
-export class AppModule { }
+export class TodoModule {}

@@ -1,1 +1,11 @@
-<h1>Navbar Component in navbar module</h1>
+
+<div>
+    <a 
+      *ngFor="let item of nav"
+      [routerLink]="item.link"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: item.exact }">
+      {{ item.name }}
+    </a>
+    <router-outlet></router-outlet>
+</div>

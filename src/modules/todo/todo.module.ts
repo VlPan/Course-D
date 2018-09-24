@@ -4,14 +4,28 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 
 import { TodoPage } from './pages';
+import { FormsModule } from '@angular/forms';
+
+import {
+  TodoList,
+  AddTodoForm,
+  AuthRememberComponent
+ } from './components';
 
 @NgModule({
   declarations: [
-    TodoPage
+    TodoPage,
+    TodoList,
+    AddTodoForm,
+    AuthRememberComponent
   ],
   imports: [
     CommonModule,
     BrowserModule,
+    FormsModule
+  ],
+  entryComponents: [
+    AddTodoForm
   ],
   providers: [],
   exports: [TodoPage],

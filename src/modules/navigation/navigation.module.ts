@@ -3,8 +3,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 
-import { TodModule } from 'modules/tod/tod.module';
-import { TodoModule } from 'modules/todo/todo.module';
 
 import {
   TodNavbarComponent
@@ -15,19 +13,21 @@ import {
   HomePage,
 } from './pages';
 
-import { TodPage } from 'modules/tod/pages';
-import { TodoPage } from 'modules/todo/pages';
+import { ProductManagerPage } from '../product-manager/pages';
+import { LoginPage } from '../login/pages';
+import { LoginModule } from './../login/login.module';
+import { ProductManagerModule } from './../product-manager/product-manager.module';
 
 const routes: Routes = [
   { path: 'home', component: HomePage, children: [
     {
-      path: 'tod',
-      component: TodPage
+      path: 'product-manager',
+      component: ProductManagerPage
     },
     {
-      path: 'todo',
-      component: TodoPage
-    }
+      path: 'login',
+      component: LoginPage
+    },
   ]
   }
 ];
@@ -42,8 +42,8 @@ const routes: Routes = [
     CommonModule,
     BrowserModule,
     RouterModule.forRoot(routes),
-    TodModule,
-    TodoModule
+    LoginModule,
+    ProductManagerModule
   ],
   providers: [],
   exports: [TodNavbarComponent],

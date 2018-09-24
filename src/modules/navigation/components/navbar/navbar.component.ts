@@ -29,6 +29,16 @@ export class TodNavbarComponent {
       exact: true
     },
     {
+      link: '/home/product-manager',
+      name: 'Product-manager',
+      exact: true
+    },
+    {
+      link: '/home/login',
+      name: 'Login',
+      exact: true
+    },
+    {
       link: '/oops',
       name: '404',
       exact: false

@@ -1,0 +1,15 @@
+<div>
+  <form (ngSubmit)="submit(form.value)">
+    <h1>Login FORM COMPONENT</h1>
+    <h2>Title: </h2>
+    <h3>{{ title }}</h3>
+    <label>
+      Email address
+      <input type="email" name="email" ngModel>
+    </label>
+    <label>
+      Password
+      <input type="password" name="password" ngModel>
+    </label> 
+  </form>
+</div>

@@ -8,28 +8,28 @@ import 'rxjs/add/observable/throw';
 import { Product } from './models';
 
 @Injectable()
-export class PizzasService {
+export class ProductService {
   constructor(private http: HttpClient) {}
 
-  getPizzas(): Observable<Product[]> {
+  getProducts(): Observable<Product[]> {
     return this.http
       .get<Product[]>(`http://localhost:3000/products`)
       .pipe(catchError((error: any) => Observable.throw(error.json())));
   }
 
-  createPizza(payload: Product): Observable<Product> {
+  createProduct(payload: Product): Observable<Product> {
     return this.http
       .post<Product>(`http://localhost:3000/products`, payload)
       .pipe(catchError((error: any) => Observable.throw(error.json())));
   }
 
-  updatePizza(payload: Product): Observable<Product> {
+  updateProduct(payload: Product): Observable<Product> {
     return this.http
       .put<Product>(`http://localhost:3000/products/${payload.id}`, payload)
       .pipe(catchError((error: any) => Observable.throw(error.json())));
   }
 
-  removePizza(payload: Product): Observable<Product> {
+  removeProduct(payload: Product): Observable<Product> {
     return this.http
       .delete<Product>(`http://localhost:3000/products/${payload.id}`)
       .pipe(catchError((error: any) => Observable.throw(error.json())));

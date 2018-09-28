@@ -4,4 +4,5 @@ export interface Product {
     price: number;
     convertedPrice?: string;
     date: Date;
-};
+}
+

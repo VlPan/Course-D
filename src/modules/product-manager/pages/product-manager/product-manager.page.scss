@@ -1,15 +1,40 @@
-.sv-product-manager {
-    border: 1px solid grey;
-    font-size: 16px;
 
-}
 
-.example-form {
-    min-width: 150px;
-    max-width: 500px;
+
+  table {
     width: 100%;
+
+    
+  }
+
+  .mat-sort-header-container{
+    display:flex !important;
+    justify-content:center!important;
+  }
+
+  .mat-header-cell {
+    text-align: center !important;
+  }
+
+  .example-container {
+    display: flex;
+    flex-direction: column;
+    min-width: 300px;
   }
   
-  .example-full-width {
-    width: 100%;
+  .mat-header-cell.mat-sort-header-sorted {
+    color: black;
   }
+
+  .example-header {
+    min-height: 64px;
+    padding: 8px 24px 0;
+  }
+
+  .mat-column-select {
+    overflow: initial;
+  }
+  
+
+
+  

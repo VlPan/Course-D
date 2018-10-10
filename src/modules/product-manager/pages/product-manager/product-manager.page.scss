@@ -31,8 +31,24 @@
     padding: 8px 24px 0;
   }
 
+  .mat-form-field {
+    width: 300px;
+  }
+
   .mat-column-select {
     overflow: initial;
+  }
+
+  .add-button {
+    position: fixed !important;
+    right: 40px;
+    bottom: 40px;
+    color: white !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 40px;
+    padding: 20px;
   }
   
 

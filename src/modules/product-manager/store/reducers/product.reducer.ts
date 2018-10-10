@@ -81,9 +81,9 @@ export function reducer(
     }
 
     case REMOVE_PRODUCT_SUCCESS: {
-      const pizza = action.payload;
-      const { [pizza.id]: removed, ...entities } = state.entities;
-
+      const product = action.payload;
+      const { [product.id]: removed, ...entities } = state.entities;
+        
       return {
         ...state,
         entities,

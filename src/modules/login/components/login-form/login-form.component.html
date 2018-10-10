@@ -1,23 +1,10 @@
 <div>
-  <form (ngSubmit)="submit(form.value)">
-    <h1>Login FORM COMPONENT</h1>
-    <h2>Title: </h2>
-    <h3>{{ title }}</h3>
-    <label>
-      Email address
-      <input type="email" name="email" ngModel>
-    </label>
-    <label>
-      Password
-      <input type="password" name="password" ngModel>
-    </label> 
-  </form>
 
-  <form class="example-form">
+  <form class="example-form" (ngSubmit)="submit()">
     <mat-form-field class="example-full-width">
       <input matInput placeholder="Email" [formControl]="emailFormControl"
              [errorStateMatcher]="matcher">
-      <mat-hint>Errors appear instantly!</mat-hint>
+      <mat-hint>Введите email стандартного  формата </mat-hint>
       <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
         Please enter a valid email address
       </mat-error>
@@ -36,6 +23,17 @@
         At least <strong>6 characters</strong>
       </mat-error>
     </mat-form-field>
+    
+
+  <button mat-stroked-button [disabled]="
+    passwordFormControl.hasError('required') ||
+    passwordFormControl.hasError('minlength') ||
+    emailFormControl.hasError('email') ||
+    emailFormControl.hasError('required')
+    " color="primary">
+    Войти
+  </button>
+
   </form>
 
   <!-- <form class="example-form">

@@ -19,16 +19,6 @@ export class TodNavbarComponent {
       exact: true
     },
     {
-      link: '/home/tod',
-      name: 'TOD',
-      exact: true
-    },
-    {
-      link: '/home/todo',
-      name: 'TODO',
-      exact: true
-    },
-    {
       link: '/home/product-manager',
       name: 'Product-manager',
       exact: true

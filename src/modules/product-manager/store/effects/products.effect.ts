@@ -74,7 +74,7 @@ export class ProductEffects {
       return this.productService
         .removeProduct(product)
         .pipe(
-          map(removedProduct => new productActions.RemoveProductSuccess(removedProduct)),
+          map(removedProduct => new productActions.RemoveProductSuccess(product)),
           catchError(error => of(new productActions.RemoveProductFail(error)))
         );
     })

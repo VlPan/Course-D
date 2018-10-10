@@ -4,9 +4,12 @@ import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
 import { ProductsState } from './../../store/reducers/product.reducer';
 import { getAllProducts } from './../../store/selectors/products.selectors';
-import { LoadProducts } from '../../store/actions/products.action';
+import { LoadProducts, RemoveProduct, UpdateProduct, CreateProduct } from '../../store/actions/products.action';
 import {SelectionModel} from '@angular/cdk/collections';
-import {MatSort, MatTableDataSource, MatPaginator} from '@angular/material';
+import {MatSort, MatTableDataSource, MatPaginator, MatDialog} from '@angular/material';
+import { DeleteDialog } from '../../components/delete-dialog/delete-dialog';
+import { UpdateDialog } from '../../components/update-dialog/update-dialog';
+import { AddDialog } from '../../components/add-dialog';
 
 export interface PeriodicElement {
   name: string;
@@ -25,9 +28,10 @@ export class ProductManagerPage implements OnInit, AfterViewInit {
 
   products$: Observable<Product[]>;
 
-  constructor(private store: Store<ProductsState>) {}
+  constructor(private store: Store<any>, public dialog: MatDialog) {}
 
-  displayedColumns: string[] = ['select', 'position', 'name', 'weight', 'symbol'];
+  displayedColumns: string[] = ['select', 'name', 'price', 'amount', 'updatedAt', 'edit-action', 'delete-action'];
+  footerColums: string[] = ['name', 'price'];
   dataSource = new MatTableDataSource([]);
   selection = new SelectionModel<PeriodicElement>(true, []);
 
@@ -59,9 +63,83 @@ export class ProductManagerPage implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     this.products$.subscribe( (products: Product[]) => {
+      console.log(products);
       this.dataSource.data = products;
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
   } );
   }
+
+  deleteProduct(product: Product) {
+    this.store.dispatch(new RemoveProduct(product));
+  }
+
+  updateProduct(product: Product) {
+    this.store.dispatch(new UpdateProduct(product));
+  }
+
+  openDeleteDialog(product: Product) {
+
+    const dialogRef = this.dialog.open(DeleteDialog, {
+      data: { product }
+    });
+    
+    const subsriber = dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+      if(result) {
+        this.deleteProduct(product);
+        subsriber.unsubscribe();
+      }
+     
+    });
+    
+  }
+
+  openUpdateDialog(product: Product) {
+    const dialogRef = this.dialog.open(UpdateDialog, {
+      data: { product },
+      height: '45%',
+      width: '50%'
+    });
+    
+    const subsriber = dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+      if(result) {
+        this.updateProduct(result);
+        subsriber.unsubscribe();
+      }
+    });
+  }
+
+  openAddDialog() {
+    console.log('open add')
+    const dialogRef =  this.dialog.open(AddDialog, {
+      data: { allProducts: this.dataSource.data },
+      height: '90%',
+      width: '90%'
+    });
+
+    const subsriber = dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+      const {productsForCreate, productsForUpdate} = result;
+      productsForUpdate.forEach(element => {
+        this.store.dispatch(new UpdateProduct(element));
+      });
+      productsForCreate.forEach(element => {
+        this.store.dispatch(new CreateProduct(element));
+      });
+    });
+
+  }
+
+  getTotalCost() {
+    let total = 0;
+
+    for(let i = 0; i < this.dataSource.data.length; i++ ) {
+      const currentProduct = this.dataSource.data[i];
+      total += currentProduct.price  * currentProduct.amount;
+    }
+    return total;
+  }
+
 }

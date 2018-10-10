@@ -2,6 +2,7 @@ import { Component, Output, EventEmitter, OnInit, AfterContentInit } from '@angu
 import { LoginService } from '../../services/login.service';
 import {FormControl, FormGroupDirective, NgForm, Validators} from '@angular/forms';
 import {ErrorStateMatcher} from '@angular/material/core';
+import { UserFieldsToLogin } from '../../models';
 
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -11,32 +12,30 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   }
 }
 
+export class MyErrorStateMatcherForUpdate implements ErrorStateMatcher {
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    const isSubmitted = form && form.submitted;
+    return !!(control && control.invalid && isSubmitted);
+  }
+}
+
 @Component({
   selector: 'app-login-form',
   templateUrl: './login-form.component.html',
   styleUrls: ['./login-form.component.scss']
 })
-export class LoginForm implements OnInit, AfterContentInit {
-
-  title = 'login Form';
+export class LoginForm implements AfterContentInit {
 
   constructor(private loginService: LoginService) {}
   @Output() submitted: EventEmitter <any> = new EventEmitter();
 
   emailFormControl: FormControl;
   passwordFormControl: FormControl;
+  nameFormControl: FormControl;
   matcher: MyErrorStateMatcher;
 
 
-
-  ngOnInit() {
-    this.loginService.loginUser('vlpan', '123qws').subscribe((user: any) => {
-      alert(user);
-    });
-  }
-
-  ngAfterContentInit(): void {
-    console.log('after content init');
+  ngAfterContentInit(): void { 
     this.emailFormControl = new FormControl('', [
       Validators.required,
       Validators.email,
@@ -48,8 +47,11 @@ export class LoginForm implements OnInit, AfterContentInit {
     this.matcher = new MyErrorStateMatcher();
   }
 
-  submit(event) {
-    this.submitted.emit(event);
+  submit() {
+    const email = this.emailFormControl.value;
+    const password = this.passwordFormControl.value;
+    const user: UserFieldsToLogin = {email, password}
+    this.submitted.emit(user);
   }
 
 }
